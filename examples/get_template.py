@@ -37,7 +37,7 @@ async def get_brand_template_async(**kwargs):
 
     query = TemplateProvider.get_template(**kwargs)
     provider = TemplateProvider(tillo_async_client)
-    templates = await provider.get_template_async(query)
+    template = await provider.get_template_async(query)
 
     return template
 

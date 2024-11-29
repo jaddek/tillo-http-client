@@ -6,14 +6,14 @@ from httpclient.http_client_factory import create_async_client, create_client
 TILLO_HOST = ''
 TILLO_API_KEY = ''
 TILLO_SECRET = ''
-TILL_HTTP_CLIENT_OPTIONS = {}
+TILLO_HTTP_CLIENT_OPTIONS = {}
 
 def get_brand_templates():
     tillo_client = create_client(
         TILLO_HOST,
         TILLO_API_KEY,
         TILLO_SECRET,
-        **TILL_HTTP_CLIENT_OPTIONS,
+        **TILLO_HTTP_CLIENT_OPTIONS,
     )
 
     query = TemplateListProvider.get_template_list_endpoint_query()
@@ -31,7 +31,7 @@ async def get_brand_templates_async():
         TILLO_HOST,
         TILLO_API_KEY,
         TILLO_SECRET,
-        **TILL_HTTP_CLIENT_OPTIONS,
+        **TILLO_HTTP_CLIENT_OPTIONS,
     )
 
     query = TemplateListProvider.get_template_list_endpoint_query()

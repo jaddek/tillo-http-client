@@ -6,7 +6,7 @@ from httpclient.http_client_factory import create_async_client, create_client
 TILLO_HOST = ''
 TILLO_API_KEY = ''
 TILLO_SECRET = ''
-TILL_HTTP_CLIENT_OPTIONS = {}
+TILLO_HTTP_CLIENT_OPTIONS = {}
 
 
 def get_available_brands():
@@ -18,7 +18,7 @@ def get_available_brands():
         TILLO_HOST,
         TILLO_API_KEY,
         TILLO_SECRET,
-        **TILL_HTTP_CLIENT_OPTIONS,
+        **TILLO_HTTP_CLIENT_OPTIONS,
     )
 
     query = BrandProvider.get_brand_endpoint_query()
@@ -40,7 +40,7 @@ async def get_available_brands_async():
         TILLO_HOST,
         TILLO_API_KEY,
         TILLO_SECRET,
-        **TILL_HTTP_CLIENT_OPTIONS,
+        **TILLO_HTTP_CLIENT_OPTIONS,
     )
 
     query = BrandProvider.get_brand_endpoint_query()
