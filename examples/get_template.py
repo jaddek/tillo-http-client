@@ -8,6 +8,7 @@ TILLO_API_KEY = ''
 TILLO_SECRET = ''
 TILL_HTTP_CLIENT_OPTIONS = {}
 
+
 def get_brand_template(**kwargs):
     tillo_client = create_client(
         TILLO_HOST,
@@ -18,9 +19,9 @@ def get_brand_template(**kwargs):
 
     query = TemplateProvider.get_template(**kwargs)
     provider = TemplateProvider(tillo_client)
-    templates = provider.get_template(query)
+    template = provider.get_template(query)
 
-    return templates
+    return template
 
 
 get_brand_template()
@@ -38,8 +39,7 @@ async def get_brand_template_async(**kwargs):
     provider = TemplateProvider(tillo_async_client)
     templates = await provider.get_template_async(query)
 
-    return templates
-
+    return template
 
 
 asyncio.run(get_brand_template_async())
