@@ -1,8 +1,8 @@
 import asyncio
 
-from httpclient.domain.float.endpoints import CheckFloatsEndpoint
-from httpclient.domain.float.providers import FloatProvider
-from httpclient.http_client_factory import create_client
+from jaddek_tillo_http_client.domain.float.endpoints import CheckFloatsEndpoint
+from jaddek_tillo_http_client.domain.float.providers import FloatProvider
+from jaddek_tillo_http_client.http_client_factory import create_client, create_client_async
 
 TILLO_HOST = ''
 TILLO_API_KEY = ''
@@ -27,8 +27,9 @@ def check_floats(**kwargs):
 
 check_floats()
 
+
 async def check_floats_async(**kwargs):
-    tillo_client = create_client(
+    tillo_client = create_client_async(
         TILLO_HOST,
         TILLO_API_KEY,
         TILLO_SECRET,
@@ -37,7 +38,7 @@ async def check_floats_async(**kwargs):
 
     query = CheckFloatsEndpoint.QueryParams(**kwargs)
     provider = FloatProvider(tillo_client)
-    floats = await provider.check_floats(query)
+    floats = await provider.check_floats_async(query)
 
     print(floats.text)
 

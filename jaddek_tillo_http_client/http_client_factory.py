@@ -16,7 +16,7 @@ def create_signer(
     )
 
 
-def create_async_client(
+def create_client_async(
         base_url: str,
         api_key: str,
         secret_key: str,

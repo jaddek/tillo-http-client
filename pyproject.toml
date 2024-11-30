@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "tillo_http_client"
+name = "jaddek_tillo_http_client"
 version = "0.1.0"
 description = ""
 authors = ["tonynazarov <tonynazarov@gmail.com>"]
@@ -16,4 +16,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [project.urls]
-Homepage = "https://github.com/jaddek/tillo-client"
+Homepage = "https://github.com/jaddek/tillo-http-client"

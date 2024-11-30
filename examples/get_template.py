@@ -1,7 +1,7 @@
 import asyncio
 
-from tillo_http_client.domain.brand.providers import TemplateProvider
-from tillo_http_client.http_client_factory import create_async_client, create_client
+from jaddek_tillo_http_client.domain.brand.providers import TemplateProvider
+from jaddek_tillo_http_client.http_client_factory import create_client_async, create_client
 
 TILLO_HOST = ''
 TILLO_API_KEY = ''
@@ -28,7 +28,7 @@ get_brand_template()
 
 
 async def get_brand_template_async(**kwargs):
-    tillo_async_client = create_async_client(
+    tillo_async_client = create_client_async(
         TILLO_HOST,
         TILLO_API_KEY,
         TILLO_SECRET,
