@@ -1,7 +1,7 @@
 import asyncio
 
-from httpclient.domain.brand.providers import BrandProvider
-from httpclient.http_client_factory import create_async_client, create_client
+from tillo_http_client.domain.brand.providers import BrandProvider
+from tillo_http_client.http_client_factory import create_async_client, create_client
 
 TILLO_HOST = ''
 TILLO_API_KEY = ''
