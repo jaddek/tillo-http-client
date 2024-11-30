@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "tillo_http_client_jaddek"
+name = "tillo_http_client"
 version = "0.1.0"
 description = ""
 authors = ["tonynazarov <tonynazarov@gmail.com>"]
