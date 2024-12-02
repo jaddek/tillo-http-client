@@ -1,53 +1,38 @@
 import asyncio
 
-from jaddek_tillo_http_client.domain.brand.providers import BrandProvider
+from jaddek_tillo_http_client.domain.brand.services import BrandAssetsService
 from jaddek_tillo_http_client.http_client_factory import create_client_async, create_client
 
-TILLO_HOST = ''
 TILLO_API_KEY = ''
 TILLO_SECRET = ''
 TILLO_HTTP_CLIENT_OPTIONS = {}
 
 
 def get_available_brands():
-    """
-    Get Available Brands using sync client
-    :return:
-    """
-    tillo_client = create_client(
-        TILLO_HOST,
+    sync_client = create_client(
         TILLO_API_KEY,
         TILLO_SECRET,
-        **TILLO_HTTP_CLIENT_OPTIONS,
+        TILLO_HTTP_CLIENT_OPTIONS
     )
 
-    query = BrandProvider.get_brand_endpoint_query()
-    provider = BrandProvider(tillo_client)
-    brands = provider.get_brands(query)
+    response = BrandAssetsService.get_available_brands(sync_client)
 
-    print(brands.text)
+    print(response.text)
 
 
 get_available_brands()
 
 
 async def get_available_brands_async():
-    """
-    Get Available Brands using async client
-    :return:
-    """
-    tillo_async_client = create_client_async(
-        TILLO_HOST,
+    async_client = create_client_async(
         TILLO_API_KEY,
         TILLO_SECRET,
-        **TILLO_HTTP_CLIENT_OPTIONS,
+        TILLO_HTTP_CLIENT_OPTIONS
     )
 
-    query = BrandProvider.get_brand_endpoint_query()
-    provider = BrandProvider(tillo_async_client)
-    brands = await provider.get_brands_async(query)
+    response = await BrandAssetsService.get_available_brands_async(async_client)
 
-    print(brands.text)
+    print(response.text)
 
 
 asyncio.run(get_available_brands_async())
