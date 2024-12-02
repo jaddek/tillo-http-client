@@ -1,5 +1,4 @@
-import httpx
-
+from typing import Any
 from .http_client import AsyncHttpClient, HttpClient
 from .signature import SignatureBridge, SignatureGenerator
 
@@ -17,28 +16,26 @@ def create_signer(
 
 
 def create_client_async(
-        base_url: str,
         api_key: str,
         secret_key: str,
-        **kwargs,
+        tillo_client_params: dict[str, Any]
 ) -> AsyncHttpClient:
     signer = create_signer(api_key, secret_key)
 
     return AsyncHttpClient(
-        httpx.AsyncClient(base_url=base_url, **kwargs),
+        tillo_client_params,
         signer
     )
 
 
 def create_client(
-        base_url: str,
         api_key: str,
         secret_key: str,
-        **kwargs,
+        tillo_client_params: dict[str, Any],
 ) -> HttpClient:
     signer = create_signer(api_key, secret_key)
 
     return HttpClient(
-        httpx.Client(base_url=base_url, **kwargs),
+        tillo_client_params,
         signer
     )

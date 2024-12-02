@@ -7,30 +7,20 @@ from .signature import SignatureBridge
 
 
 class AbstractClient:
-    _http_client: Client | AsyncClient
     _signer: SignatureBridge
 
     def __init__(
             self,
-            client: Client | AsyncClient,
+            tillo_client_options: dict,
             signer: SignatureBridge
     ):
-        self.check_client(client)
-
-        self._http_client = client
+        self.tillo_client_options = tillo_client_options
         self._signer = signer
-
-    @abstractmethod
-    def check_client(self, client: Client | AsyncClient):
-        pass
 
     @abstractmethod
     def request(
             self,
             endpoint: Endpoint,
-            params: dict | None = None,
-            body: dict | None = None,
-            sign_attrs: tuple | None = None,
     ):
         pass
 
@@ -61,60 +51,45 @@ class AbstractClient:
 
 
 class AsyncHttpClient(AbstractClient):
-    def check_client(self, client: AsyncClient):
-        if not isinstance(client, AsyncClient):
-            raise TypeError(f'Class should be instance of httpx.AsyncClient')
-
     async def request(
             self,
             endpoint: Endpoint,
-            params: dict | None = None,
-            body: dict | None = None,
-            sign_attrs: tuple | None = None,
     ):
         headers = self._get_request_headers(
             endpoint.method,
             endpoint.endpoint,
-            sign_attrs
+            endpoint.query.get_sign_attrs(),
         )
 
-        if body is None:
-            body = {}
-
-        async with self._http_client as client:
+        async with AsyncClient(**self.tillo_client_options) as client:
             response = await client.request(
-                endpoint.method,
-                endpoint.route,
-                params=params,
+                url=endpoint.route,
+                method=endpoint.method,
+                params=endpoint.params,
+                json=endpoint.body,
                 headers=headers,
-                json=body,
             )
 
-            return response
+        return response
 
 
 class HttpClient(AbstractClient):
-    def check_client(self, client: Client):
-        if not isinstance(client, Client):
-            raise TypeError(f'Class should be instance of httpx.AsyncClient')
-
     def request(
             self,
             endpoint: Endpoint,
-            params: dict | None = None,
-            body: dict | None = None,
-            sign_attrs: tuple | None = None,
     ):
         headers = self._get_request_headers(
             endpoint.method,
             endpoint.endpoint,
-            sign_attrs
+            endpoint.query.get_sign_attrs(),
         )
 
-        return self._http_client.request(
-            endpoint.method,
-            endpoint.route,
-            params=params,
+        response = Client(**self.tillo_client_options).request(
+            url=endpoint.route,
+            method=endpoint.method,
+            params=endpoint.params,
+            json=endpoint.body,
             headers=headers,
-            json=body,
         )
+
+        return response

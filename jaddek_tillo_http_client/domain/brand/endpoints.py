@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 
-from ...endpoint import Endpoint
+from ...endpoint import Endpoint, QP
 from ...helpers import filter_none_values
 
 
@@ -10,7 +10,7 @@ class BrandEndpoint(Endpoint):
     _route: str = '/api/v2/brands'
 
     @dataclass(frozen=True)
-    class QueryParams:
+    class QueryParams(QP):
         detail: bool = field(default=True)
         currency: str | None = field(default=None)
         country: str | None = field(default=None)
@@ -20,6 +20,15 @@ class BrandEndpoint(Endpoint):
         def get_not_empty_values(self) -> dict:
             return filter_none_values(self)
 
+    @property
+    def query(self) -> QueryParams:
+        query = self._query
+
+        if query is None:
+            query = {}
+
+        return self.QueryParams(**query)
+
 
 class TemplateListEndpoint(Endpoint):
     _method: str = 'GET'
@@ -27,7 +36,7 @@ class TemplateListEndpoint(Endpoint):
     _route: str = '/api/v2/templates'
 
     @dataclass(frozen=True)
-    class QueryParams:
+    class QueryParams(QP):
         brand: str | None = field(default=None)
 
         def get_not_empty_values(self) -> dict:
@@ -36,6 +45,14 @@ class TemplateListEndpoint(Endpoint):
         def get_sign_attrs(self) -> tuple:
             return (self.brand,) if self.brand is not None else ()
 
+    @property
+    def query(self) -> QueryParams:
+        query = self._query
+
+        if query is None:
+            query = {}
+
+        return self.QueryParams(**query)
 
 class TemplateEndpoint(Endpoint):
     _method: str = 'GET'
@@ -52,3 +69,12 @@ class TemplateEndpoint(Endpoint):
 
         def get_sign_attrs(self) -> tuple:
             return (self.brand,) if self.brand is not None else ()
+
+    @property
+    def query(self) -> QueryParams:
+        query = self._query
+
+        if query is None:
+            query = {}
+
+        return self.QueryParams(**query)
