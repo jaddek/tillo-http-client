@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "jaddek_tillo_http_client"
-version = "0.1.0"
+version = "0.0.3"
 description = ""
 authors = ["tonynazarov <tonynazarov@gmail.com>"]
 readme = "README.md"
