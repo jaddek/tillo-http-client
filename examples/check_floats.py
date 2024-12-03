@@ -1,6 +1,6 @@
 import asyncio
 
-from jaddek_tillo_http_client.domain.float.services import FloatServices
+from jaddek_tillo_http_client.domain.float.services import FloatService
 from jaddek_tillo_http_client.http_client_factory import create_client, create_client_async
 
 TILLO_HOST = ''
@@ -16,7 +16,7 @@ def check_floats():
         TILLO_HTTP_CLIENT_OPTIONS
     )
 
-    response = FloatServices.check_floats(sync_client)
+    response = FloatService.check_floats(sync_client)
 
     print(response.text)
 
@@ -31,7 +31,7 @@ async def check_floats_async():
         TILLO_HTTP_CLIENT_OPTIONS
     )
 
-    response = await FloatServices.check_floats_async(async_client)
+    response = await FloatService.check_floats_async(async_client)
 
     print(response.text)
 
