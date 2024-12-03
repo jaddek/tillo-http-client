@@ -1,8 +1,7 @@
 from dataclasses import dataclass, field
 
-from ...endpoint import Endpoint
+from ...endpoint import Endpoint, QP
 from ...helpers import filter_none_values
-
 
 class CheckFloatsEndpoint(Endpoint):
     _method: str = 'GET'
@@ -10,7 +9,7 @@ class CheckFloatsEndpoint(Endpoint):
     _route: str = '/api/v2/check-floats'
 
     @dataclass(frozen=True)
-    class QueryParams:
+    class QueryParams(QP):
         currency: str = field(default=None)
         template: str = field(default=None)
 

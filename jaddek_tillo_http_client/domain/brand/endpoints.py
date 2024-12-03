@@ -60,7 +60,7 @@ class TemplateEndpoint(Endpoint):
     _route: str = '/api/v2/template'
 
     @dataclass(frozen=True)
-    class QueryParams:
+    class QueryParams(QP):
         brand: str | None = field(default=None)
         template: str | None = field(default=None)
 

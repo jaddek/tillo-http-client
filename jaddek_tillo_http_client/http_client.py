@@ -55,10 +55,18 @@ class AsyncHttpClient(AbstractClient):
             self,
             endpoint: Endpoint,
     ):
+        json: dict | None = None
+
+        if endpoint.is_body_not_empty():
+            sign_attrs = endpoint.body.get_sign_attrs()
+            json = endpoint.body.get_as_dict()
+        else:
+            sign_attrs = endpoint.query.get_sign_attrs()
+
         headers = self._get_request_headers(
             endpoint.method,
             endpoint.endpoint,
-            endpoint.query.get_sign_attrs(),
+            sign_attrs,
         )
 
         async with AsyncClient(**self.tillo_client_options) as client:
@@ -66,7 +74,7 @@ class AsyncHttpClient(AbstractClient):
                 url=endpoint.route,
                 method=endpoint.method,
                 params=endpoint.params,
-                json=endpoint.body,
+                json=json,
                 headers=headers,
             )
 
@@ -78,17 +86,25 @@ class HttpClient(AbstractClient):
             self,
             endpoint: Endpoint,
     ):
+        json: dict | None = None
+
+        if endpoint.is_body_not_empty():
+            sign_attrs = endpoint.body.get_sign_attrs()
+            json = endpoint.body.get_as_dict()
+        else:
+            sign_attrs = endpoint.query.get_sign_attrs()
+
         headers = self._get_request_headers(
             endpoint.method,
             endpoint.endpoint,
-            endpoint.query.get_sign_attrs(),
+            sign_attrs,
         )
 
         response = Client(**self.tillo_client_options).request(
             url=endpoint.route,
             method=endpoint.method,
             params=endpoint.params,
-            json=endpoint.body,
+            json=json,
             headers=headers,
         )
 

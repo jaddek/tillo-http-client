@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 
 from ..brand import FaceValue
-from ...endpoint import Endpoint
+from ...endpoint import Endpoint, AbstractBodyRequest, QP
 from ...helpers import filter_none_values, transform_to_dict
 
 
@@ -11,7 +11,7 @@ class IssueDigitalCodeEndpoint(Endpoint):
     _route: str = '/api/v2/digital/issue'
 
     @dataclass(frozen=True)
-    class RequestBody:
+    class RequestBody(AbstractBodyRequest):
         @dataclass(frozen=True)
         class Personalisation:
             to_name: str | None = field(default=None)
@@ -68,16 +68,13 @@ class IssueDigitalCodeEndpoint(Endpoint):
         sector: str | None = field(default=None)
         personalisation: Personalisation | PersonalisationExtended | None = field(default=None)
 
-        def get_sign_attr(self) -> tuple:
+        def get_sign_attrs(self) -> tuple:
             return (
                 self.client_request_id,
                 self.brand,
                 self.face_value.currency,
                 self.face_value.amount,
             )
-
-        def get_as_dict(self) -> dict:
-            return transform_to_dict(self)
 
 
 class TopUpDigitalCodeEndpoint(Endpoint):
@@ -86,7 +83,7 @@ class TopUpDigitalCodeEndpoint(Endpoint):
     _route: str = '/api/v2/digital/top-up'
 
     @dataclass(frozen=True)
-    class RequestBody:
+    class RequestBody(AbstractBodyRequest):
         client_request_id: str | None = field(default=None)
         brand: str | None = field(default=None)
         face_value: FaceValue | None = field(default=None)
@@ -128,7 +125,7 @@ class CancelDigitalCodeEndpoint(Endpoint):
     _route: str = '/api/v2/digital/issue'
 
     @dataclass(frozen=True)
-    class RequestBody:
+    class RequestBody(AbstractBodyRequest):
         client_request_id: str | None = field(default=None)
         original_client_request_id: str | None = field(default=None)
         brand: str | None = field(default=None)
@@ -154,7 +151,7 @@ class CancelDigitalUrlEndpoint(Endpoint):
     _route: str = '/api/v2/digital/issue'
 
     @dataclass(frozen=True)
-    class RequestBody:
+    class RequestBody(AbstractBodyRequest):
         client_request_id: str | None = field(default=None)
         original_client_request_id: str | None = field(default=None)
         brand: str | None = field(default=None)
@@ -180,7 +177,7 @@ class ReverseDigitalCode(Endpoint):
     _route: str = '/api/v2/digital/reverse'
 
     @dataclass(frozen=True)
-    class RequestBody:
+    class RequestBody(AbstractBodyRequest):
         client_request_id: str | None = field(default=None)
         original_client_request_id: str | None = field(default=None)
         brand: str | None = field(default=None)
@@ -205,7 +202,7 @@ class CheckBalanceEndpoint(Endpoint):
     _route: str = '/api/v2/digital/check-balance'
 
     @dataclass(frozen=True)
-    class RequestBody:
+    class RequestBody(AbstractBodyRequest):
         client_request_id: str | None = field(default=None)
         brand: str | None = field(default=None)
         face_value: FaceValue | None = field(default=None)
@@ -228,7 +225,7 @@ class OrderDigitalCodeAsyncEndpoint(Endpoint):
     _route: str = '/api/v2/digital/order-card'
 
     @dataclass(frozen=True)
-    class RequestBody:
+    class RequestBody(AbstractBodyRequest):
         @dataclass(frozen=True)
         class Personalisation:
             to_name: str | None = field(default=None)
@@ -279,7 +276,7 @@ class CheckDigitalOrderStatusAsyncEndpoint(Endpoint):
     _route: str = '/api/v2/digital/order-status'
 
     @dataclass(frozen=True)
-    class QueryParams:
+    class QueryParams(QP):
         reference: str | None = field(default=None)
 
         def get_sign_attr(self) -> tuple:

@@ -1,7 +1,7 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
-from jaddek_tillo_http_client.helpers import filter_none_values
+from jaddek_tillo_http_client.helpers import filter_none_values, transform_to_dict
 
 
 @dataclass(frozen=True)
@@ -13,18 +13,28 @@ class QP(ABC):
         return None
 
 
+@dataclass(frozen=True)
+class AbstractBodyRequest(ABC):
+    @abstractmethod
+    def get_sign_attrs(self) -> tuple:
+        pass
+
+    def get_as_dict(self) -> dict:
+        return transform_to_dict(self)
+
+
 class Endpoint(ABC):
     _method: str | None = None
     _endpoint: str | None = None
     _route: str | None = None
     _query = None,
-    _body = None,
+    _body: AbstractBodyRequest | None = None,
     _sign_attrs = None
 
     def __init__(
             self,
-            query: None | dict = None,
-            body: None | dict = None,
+            query: dict | None = None,
+            body: AbstractBodyRequest | None = None,
             sign_attrs: tuple | None = None,
     ):
         self._query = query
@@ -44,8 +54,11 @@ class Endpoint(ABC):
         return self._route
 
     @property
-    def body(self) -> dict:
+    def body(self) -> AbstractBodyRequest | None:
         return {} if self._body is None else self._body
+
+    def is_body_not_empty(self) -> bool:
+        return self._body is not None
 
     @property
     def sign_attrs(self) -> tuple | None:
