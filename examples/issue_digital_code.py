@@ -1,11 +1,10 @@
 import asyncio
+import uuid
 
 from jaddek_tillo_http_client.domain.digital_card.factory import create_standard_issue_request
 from jaddek_tillo_http_client.domain.digital_card.services import IssueDigitalCodeService
-from jaddek_tillo_http_client.domain.float.services import FloatService
 from jaddek_tillo_http_client.enums import Currency
 from jaddek_tillo_http_client.http_client_factory import create_client, create_client_async
-import uuid
 
 TILLO_HOST = ''
 TILLO_API_KEY = ''
