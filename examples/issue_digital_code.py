@@ -26,7 +26,10 @@ def issue_digital_code():
         amount=10,
     )
 
-    response = IssueDigitalCodeService.issue_digital_code(sync_client)
+    response = IssueDigitalCodeService.issue_digital_code(
+        sync_client,
+        body=body
+    )
 
     print(response.text)
 
