@@ -1,7 +1,8 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 from ...endpoint import Endpoint, QP
 from ...helpers import filter_none_values
+
 
 class CheckFloatsEndpoint(Endpoint):
     _method: str = 'GET'
@@ -10,8 +11,8 @@ class CheckFloatsEndpoint(Endpoint):
 
     @dataclass(frozen=True)
     class QueryParams(QP):
-        currency: str = field(default=None)
-        template: str = field(default=None)
+        currency: str | None = None
+        template: str | None = None
 
         def get_not_empty_values(self) -> dict:
             return filter_none_values(self)

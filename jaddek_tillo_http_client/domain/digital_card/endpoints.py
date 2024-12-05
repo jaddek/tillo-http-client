@@ -14,59 +14,59 @@ class IssueDigitalCodeEndpoint(Endpoint):
     class RequestBody(AbstractBodyRequest):
         @dataclass(frozen=True)
         class Personalisation:
-            to_name: str | None = field(default=None)
-            from_name: str | None = field(default=None)
-            message: str | None = field(default=None)
-            template: str | None = field(default='standard')
+            to_name: str | None = None
+            from_name: str | None = None
+            message: str | None = None
+            template: str = 'standard'
 
         @dataclass(frozen=True)
         class PersonalisationExtended(Personalisation):
-            email_message: str | None = field(default=None),
-            redemption_message: str | None = field(default=None),
-            carrier_message: str | None = field(default=None),
+            email_message: str | None = None,
+            redemption_message: str | None = None,
+            carrier_message: str | None = None,
 
         @dataclass(frozen=True)
         class FulfilmentParameters:
-            to_name: str | None = field(default=None)
-            to_email: str | None = field(default=None)
-            from_name: str | None = field(default=None)
-            from_email: str | None = field(default=None)
-            subject: str | None = field(default=None)
+            to_name: str | None = None
+            to_email: str | None = None
+            from_name: str | None = None
+            from_email: str | None = None
+            subject: str | None = None
 
         @dataclass(frozen=True)
         class FulfilmentParametersForRewardPassUsingEmail:
-            to_name: str | None = field(default=None)
-            to_email: str | None = field(default=None)
-            from_name: str | None = field(default=None)
-            from_email: str | None = field(default=None)
-            subject: str | None = field(default=None)
-            language: str = field(default='en')
-            customer_id: str | None = field(default="")
-            to_first_name: str | None = field(default=None)
-            to_last_name: str | None = field(default=None)
+            to_name: str | None = None
+            to_email: str | None = None
+            from_name: str | None = None
+            from_email: str | None = None
+            subject: str | None = None
+            language: str = 'en'
+            customer_id: str = ""
+            to_first_name: str | None = None
+            to_last_name: str | None = None
 
         @dataclass(frozen=True)
         class FulfilmentParametersForRewardPassUsingUrl:
-            to_name: str | None = field(default=None)
-            to_first_name: str | None = field(default=None)
-            to_last_name: str | None = field(default=None)
-            address_1: str | None = field(default=None)
-            address_2: str | None = field(default=None)
-            city: str | None = field(default=None)
-            postal_code: str | None = field(default=None)
-            country: str | None = field(default=None)
-            language: str | None = field(default=None)
-            customer_id: str | None = field(default=None)
+            to_name: str | None = None
+            to_first_name: str | None = None
+            to_last_name: str | None = None
+            address_1: str | None = None
+            address_2: str | None = None
+            city: str | None = None
+            postal_code: str | None = None
+            country: str | None = None
+            language: str | None = None
+            customer_id: str | None = None
 
-        client_request_id: str | None = field(default=None)
-        brand: str | None = field(default=None)
-        face_value: FaceValue | None = field(default=None)
-        delivery_method: str | None = field(default=None)
-        fulfilment_by: str | None = field(default=None)
+        client_request_id: str | None = None
+        brand: str | None = None
+        face_value: FaceValue | None = None
+        delivery_method: str | None = None
+        fulfilment_by: str | None = None
         fulfilment_parameters: FulfilmentParameters | FulfilmentParametersForRewardPassUsingEmail | FulfilmentParametersForRewardPassUsingUrl | None = field(
             default=None)
-        sector: str | None = field(default=None)
-        personalisation: Personalisation | PersonalisationExtended | None = field(default=None)
+        sector: str | None = None
+        personalisation: Personalisation | PersonalisationExtended | None = None
 
         def get_sign_attrs(self) -> tuple:
             return (
@@ -84,12 +84,12 @@ class TopUpDigitalCodeEndpoint(Endpoint):
 
     @dataclass(frozen=True)
     class RequestBody(AbstractBodyRequest):
-        client_request_id: str | None = field(default=None)
-        brand: str | None = field(default=None)
-        face_value: FaceValue | None = field(default=None)
-        code: str | None = field(default=None),
-        pin: str | None = field(default=None),
-        sector: str | None = field(default=None)
+        client_request_id: str | None = None
+        brand: str | None = None
+        face_value: FaceValue | None = None
+        code: str | None = None,
+        pin: str | None = None,
+        sector: str | None = None
 
         def get_sign_attr(self) -> tuple:
             return (
@@ -110,7 +110,7 @@ class CheckStockEndpoint(Endpoint):
 
     @dataclass(frozen=True)
     class QueryParams:
-        brand: str = field(default=None)
+        brand: str = None
 
         def get_sign_attr(self) -> tuple:
             return (self.brand,) if self.brand is not None else ()
@@ -126,12 +126,12 @@ class CancelDigitalCodeEndpoint(Endpoint):
 
     @dataclass(frozen=True)
     class RequestBody(AbstractBodyRequest):
-        client_request_id: str | None = field(default=None)
-        original_client_request_id: str | None = field(default=None)
-        brand: str | None = field(default=None)
-        face_value: FaceValue | None = field(default=None)
-        code: str | None = field(default=None),
-        sector: str | None = field(default=None)
+        client_request_id: str | None = None
+        original_client_request_id: str | None = None
+        brand: str | None = None
+        face_value: FaceValue | None = None
+        code: str | None = None,
+        sector: str | None = None
 
         def get_sign_attr(self) -> tuple:
             return (
@@ -152,12 +152,12 @@ class CancelDigitalUrlEndpoint(Endpoint):
 
     @dataclass(frozen=True)
     class RequestBody(AbstractBodyRequest):
-        client_request_id: str | None = field(default=None)
-        original_client_request_id: str | None = field(default=None)
-        brand: str | None = field(default=None)
-        face_value: FaceValue | None = field(default=None)
-        url: str | None = field(default=None),
-        sector: str | None = field(default=None)
+        client_request_id: str | None = None
+        original_client_request_id: str | None = None
+        brand: str | None = None
+        face_value: FaceValue | None = None
+        url: str | None = None,
+        sector: str | None = None
 
         def get_sign_attr(self) -> tuple:
             return (
@@ -178,11 +178,11 @@ class ReverseDigitalCode(Endpoint):
 
     @dataclass(frozen=True)
     class RequestBody(AbstractBodyRequest):
-        client_request_id: str | None = field(default=None)
-        original_client_request_id: str | None = field(default=None)
-        brand: str | None = field(default=None)
-        face_value: FaceValue | None = field(default=None)
-        sector: str | None = field(default=None)
+        client_request_id: str | None = None
+        original_client_request_id: str | None = None
+        brand: str | None = None
+        face_value: FaceValue | None = None
+        sector: str | None = None
 
         def get_sign_attr(self) -> tuple:
             return (
@@ -203,10 +203,10 @@ class CheckBalanceEndpoint(Endpoint):
 
     @dataclass(frozen=True)
     class RequestBody(AbstractBodyRequest):
-        client_request_id: str | None = field(default=None)
-        brand: str | None = field(default=None)
-        face_value: FaceValue | None = field(default=None)
-        reference: str | None = field(default=None)
+        client_request_id: str | None = None
+        brand: str | None = None
+        face_value: FaceValue | None = None
+        reference: str | None = None
 
         def get_sign_attr(self) -> tuple:
             return (
@@ -228,35 +228,35 @@ class OrderDigitalCodeAsyncEndpoint(Endpoint):
     class RequestBody(AbstractBodyRequest):
         @dataclass(frozen=True)
         class Personalisation:
-            to_name: str | None = field(default=None)
-            from_name: str | None = field(default=None)
-            message: str | None = field(default=None)
+            to_name: str | None = None
+            from_name: str | None = None
+            message: str | None = None
             template: str | None = field(default='standard')
-            email_message: str | None = field(default=None),
-            redemption_message: str | None = field(default=None),
-            carrier_message: str | None = field(default=None),
+            email_message: str | None = None,
+            redemption_message: str | None = None,
+            carrier_message: str | None = None,
 
         @dataclass(frozen=True)
         class FulfilmentParameters:
-            to_name: str | None = field(default=None)
-            to_email: str | None = field(default=None)
-            from_name: str | None = field(default=None)
-            from_email: str | None = field(default=None)
-            subject: str | None = field(default=None)
+            to_name: str | None = None
+            to_email: str | None = None
+            from_name: str | None = None
+            from_email: str | None = None
+            subject: str | None = None
             language: str = field(default='en')
             customer_id: str | None = field(default="")
-            to_first_name: str | None = field(default=None)
-            to_last_name: str | None = field(default=None)
+            to_first_name: str | None = None
+            to_last_name: str | None = None
 
-        client_request_id: str | None = field(default=None)
-        brand: str | None = field(default=None)
-        face_value: FaceValue | None = field(default=None)
-        delivery_method: str | None = field(default=None)
-        fulfilment_by: str | None = field(default=None)
+        client_request_id: str | None = None
+        brand: str | None = None
+        face_value: FaceValue | None = None
+        delivery_method: str | None = None
+        fulfilment_by: str | None = None
         fulfilment_parameters: FulfilmentParameters | None = field(
             default=None)
-        sector: str | None = field(default=None)
-        personalisation: Personalisation | None = field(default=None)
+        sector: str | None = None
+        personalisation: Personalisation | None = None
 
         def get_sign_attr(self) -> tuple:
             return (
@@ -277,7 +277,7 @@ class CheckDigitalOrderStatusAsyncEndpoint(Endpoint):
 
     @dataclass(frozen=True)
     class QueryParams(QP):
-        reference: str | None = field(default=None)
+        reference: str | None = None
 
         def get_sign_attr(self) -> tuple:
             return ()

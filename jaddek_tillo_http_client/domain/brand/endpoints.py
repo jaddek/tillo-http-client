@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 from ...endpoint import Endpoint, QP
 from ...helpers import filter_none_values
@@ -11,11 +11,11 @@ class BrandEndpoint(Endpoint):
 
     @dataclass(frozen=True)
     class QueryParams(QP):
-        detail: bool = field(default=True)
-        currency: str | None = field(default=None)
-        country: str | None = field(default=None)
-        brand: str | None = field(default=None)
-        category: str | None = field(default=None)
+        detail: bool = None
+        currency: str | None = None
+        country: str | None = None
+        brand: str | None = None
+        category: str | None = None
 
         def get_not_empty_values(self) -> dict:
             return filter_none_values(self)
@@ -37,7 +37,7 @@ class TemplateListEndpoint(Endpoint):
 
     @dataclass(frozen=True)
     class QueryParams(QP):
-        brand: str | None = field(default=None)
+        brand: str | None = None
 
         def get_not_empty_values(self) -> dict:
             return filter_none_values(self)
@@ -54,6 +54,7 @@ class TemplateListEndpoint(Endpoint):
 
         return self.QueryParams(**query)
 
+
 class TemplateEndpoint(Endpoint):
     _method: str = 'GET'
     _endpoint: str = 'template'
@@ -61,8 +62,8 @@ class TemplateEndpoint(Endpoint):
 
     @dataclass(frozen=True)
     class QueryParams(QP):
-        brand: str | None = field(default=None)
-        template: str | None = field(default=None)
+        brand: str | None = None
+        template: str | None = None
 
         def get_not_empty_values(self) -> dict:
             return filter_none_values(self)

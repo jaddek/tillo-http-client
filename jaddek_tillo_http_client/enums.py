@@ -1,6 +1,11 @@
 from enum import Enum
 
 
+class Status(Enum):
+    DISABLED = 'disabled'
+    ENABLED = 'enabled'
+
+
 class Currency(Enum):
     EUR = 'EUR'
     GBP = 'GBP'
