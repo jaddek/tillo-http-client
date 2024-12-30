@@ -100,12 +100,13 @@ class HttpClient(AbstractClient):
             sign_attrs,
         )
 
-        response = Client(**self.tillo_client_options).request(
-            url=endpoint.route,
-            method=endpoint.method,
-            params=endpoint.params,
-            json=json,
-            headers=headers,
-        )
+        with Client(**self.tillo_client_options) as client:
+            response = client.request(
+                url=endpoint.route,
+                method=endpoint.method,
+                params=endpoint.params,
+                json=json,
+                headers=headers,
+            )
 
         return response
