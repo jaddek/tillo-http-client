@@ -1,6 +1,6 @@
 [project]
 name = "jaddek_tillo_http_client"
-version = "0.1.0"
+version = "0.0.4"
 description = "Tillo HTTP Client"
 authors = [
     { name = "Anton Nazarov", email = "tonynazarov@gmail.com" }
