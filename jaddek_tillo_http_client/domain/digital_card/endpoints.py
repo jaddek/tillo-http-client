@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 
-from ..brand import FaceValue
+from . import FaceValue
 from ...endpoint import Endpoint, AbstractBodyRequest, QP
 from ...helpers import filter_none_values, transform_to_dict
 
