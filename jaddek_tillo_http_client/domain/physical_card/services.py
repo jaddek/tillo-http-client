@@ -1,7 +1,7 @@
 from httpx import Response
 
 from .endpoints import ActivatePhysicalCardEndpoint, CancelActivatePhysicalCardEndpoint, \
-    CashOutOriginalTransactionPhysicalCardEndpoint, TopUpPhysicalCardEndpoint
+    CashOutOriginalTransactionPhysicalCardEndpoint, TopUpPhysicalCardEndpoint, BalanceCheckPhysicalEndpoint
 from ...http_client import HttpClient, AsyncHttpClient
 
 
@@ -201,9 +201,35 @@ class PhysicalGiftCardsService:
         pass
 
     @staticmethod
-    def balance_check_physical(self):
-        pass
+    def balance_check_physical(
+            client: HttpClient,
+            query_params: dict | None = None,
+            body: BalanceCheckPhysicalEndpoint.RequestBody | None = None,
+    ) -> Response:
+        endpoint = BalanceCheckPhysicalEndpoint(
+            body=body,
+            query=query_params,
+        )
+
+        response = client.request(
+            endpoint=endpoint
+        )
+
+        return response
 
     @staticmethod
-    async def balance_check_physical_async(self):
-        pass
+    async def balance_check_physical_async(
+            client: AsyncHttpClient,
+            query_params: dict | None = None,
+            body: BalanceCheckPhysicalEndpoint.RequestBody | None = None,
+    ) -> Response:
+        endpoint = BalanceCheckPhysicalEndpoint(
+            body=body,
+            query=query_params,
+        )
+
+        response = await client.request(
+            endpoint=endpoint
+        )
+
+        return response
