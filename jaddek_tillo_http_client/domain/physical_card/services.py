@@ -143,12 +143,38 @@ class PhysicalGiftCardsService:
         return response
 
     @staticmethod
-    def cancel_top_up_on_physical_card(self):
-        pass
+    def cancel_top_up_on_physical_card(
+            client: HttpClient,
+            query_params: dict | None = None,
+            body: CancelActivatePhysicalCardEndpoint.RequestBody | None = None,
+    ) -> Response:
+        endpoint = CancelActivatePhysicalCardEndpoint(
+            body=body,
+            query=query_params,
+        )
+
+        response = client.request(
+            endpoint=endpoint
+        )
+
+        return response
 
     @staticmethod
-    async def cancel_top_up_on_physical_card_async(self):
-        pass
+    async def cancel_top_up_on_physical_card_async(
+            client: AsyncHttpClient,
+            query_params: dict | None = None,
+            body: CancelActivatePhysicalCardEndpoint.RequestBody | None = None,
+    ) -> Response:
+        endpoint = CancelActivatePhysicalCardEndpoint(
+            body=body,
+            query=query_params,
+        )
+
+        response = await client.request(
+            endpoint=endpoint
+        )
+
+        return response
 
     @staticmethod
     def order_physical_card(self):
