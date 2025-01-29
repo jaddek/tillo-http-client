@@ -1,7 +1,6 @@
 import asyncio
 import uuid
 
-from jaddek_tillo_http_client.domain.float.services import FloatService
 from jaddek_tillo_http_client.domain.physical_card.factory import create_activate_physical_card_request
 from jaddek_tillo_http_client.domain.physical_card.services import PhysicalGiftCardsService
 from jaddek_tillo_http_client.enums import Currency
@@ -11,6 +10,7 @@ TILLO_HOST = ''
 TILLO_API_KEY = ''
 TILLO_SECRET = ''
 TILLO_HTTP_CLIENT_OPTIONS = {}
+
 
 def activate_physical_card():
     sync_client = create_client(
@@ -33,7 +33,9 @@ def activate_physical_card():
         body=body
     )
 
+
 print(activate_physical_card().json())
+
 
 async def activate_physical_card_async():
     async_client = create_client_async(
