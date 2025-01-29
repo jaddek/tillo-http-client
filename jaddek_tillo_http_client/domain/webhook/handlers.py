@@ -1,6 +1,6 @@
 import json
 
-from jaddek_tillo_http_client.domain.webhook.models import Webhook
+from .models import Webhook
 
 
 def handle_webhook_event(json_data: str) -> Webhook:

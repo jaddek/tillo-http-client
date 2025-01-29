@@ -1,7 +1,7 @@
-from jaddek_tillo_http_client.domain.digital_card.endpoints import IssueDigitalCodeEndpoint, \
+from .endpoints import IssueDigitalCodeEndpoint, \
     OrderDigitalCodeAsyncEndpoint, CheckDigitalOrderStatusAsyncEndpoint, TopUpDigitalCodeEndpoint, \
     CancelDigitalUrlEndpoint, CancelDigitalCodeEndpoint, ReverseDigitalCode, CheckStockEndpoint, CheckBalanceEndpoint
-from jaddek_tillo_http_client.http_client import HttpClient, AsyncHttpClient
+from ...http_client import HttpClient, AsyncHttpClient
 
 
 class IssueDigitalCodeService:

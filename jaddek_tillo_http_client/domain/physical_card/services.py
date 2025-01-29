@@ -1,5 +1,5 @@
-from jaddek_tillo_http_client.domain.physical_card.endpoints import ActivatePhysicalCardEndpoint
-from jaddek_tillo_http_client.http_client import HttpClient, AsyncHttpClient
+from .endpoints import ActivatePhysicalCardEndpoint
+from ...http_client import HttpClient, AsyncHttpClient
 
 
 class PhysicalGiftCardsService:

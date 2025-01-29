@@ -1,5 +1,5 @@
-from jaddek_tillo_http_client.domain.brand.endpoints import BrandEndpoint, TemplateListEndpoint, TemplateEndpoint
-from jaddek_tillo_http_client.http_client import HttpClient, AsyncHttpClient
+from .endpoints import BrandEndpoint, TemplateListEndpoint, TemplateEndpoint
+from ...http_client import HttpClient, AsyncHttpClient
 
 
 class BrandAssetsService:
