@@ -29,7 +29,7 @@ class ActivatePhysicalCardEndpoint(Endpoint):
 
 class CancelActivatePhysicalCardEndpoint(Endpoint):
     _method: str = 'DELETE'
-    _endpoint: str = 'activate-physical-card????'
+    _endpoint: str = 'physical-activate'
     _route: str = '/api/v2/physical/activate'
 
     @dataclass(frozen=True)
