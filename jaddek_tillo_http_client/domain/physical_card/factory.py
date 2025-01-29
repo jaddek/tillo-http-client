@@ -1,5 +1,6 @@
 from . import FaceValue
-from .endpoints import ActivatePhysicalCardEndpoint, CashOutOriginalTransactionPhysicalCardEndpoint
+from .endpoints import ActivatePhysicalCardEndpoint, CashOutOriginalTransactionPhysicalCardEndpoint, \
+    TopUpPhysicalCardEndpoint
 from ...enums import Currency, Sector
 
 
@@ -41,3 +42,25 @@ def create_cash_out_original_transaction_request(
         pin=pin,
         sector=sector.value,
     )
+
+def create_top_up_physical_card_request(
+        client_request_id: str,
+        brand: str,
+        amount: str,
+        code: str,
+        pin: str,
+        currency: Currency.EUR,
+        sector: Sector = Sector.GIFT_CARD_MALL,
+) -> TopUpPhysicalCardEndpoint.RequestBody:
+    return TopUpPhysicalCardEndpoint.RequestBody(
+        client_request_id=client_request_id,
+        brand=brand,
+        face_value=FaceValue(
+            currency=currency.value,
+            amount=amount,
+        ),
+        code=code,
+        pin=pin,
+        sector=sector.value,
+    )
+

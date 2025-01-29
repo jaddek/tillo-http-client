@@ -1,7 +1,7 @@
 from httpx import Response
 
 from .endpoints import ActivatePhysicalCardEndpoint, CancelActivatePhysicalCardEndpoint, \
-    CashOutOriginalTransactionPhysicalCardEndpoint
+    CashOutOriginalTransactionPhysicalCardEndpoint, TopUpPhysicalCardEndpoint
 from ...http_client import HttpClient, AsyncHttpClient
 
 
@@ -109,12 +109,38 @@ class PhysicalGiftCardsService:
         return response
 
     @staticmethod
-    def top_up_physical_card(self):
-        pass
+    def top_up_physical_card(
+            client: HttpClient,
+            query_params: dict | None = None,
+            body: TopUpPhysicalCardEndpoint.RequestBody | None = None,
+    ) -> Response:
+        endpoint = TopUpPhysicalCardEndpoint(
+            body=body,
+            query=query_params,
+        )
+
+        response = client.request(
+            endpoint=endpoint
+        )
+
+        return response
 
     @staticmethod
-    async def top_up_physical_card_async(self):
-        pass
+    async def top_up_physical_card_async(
+            client: AsyncHttpClient,
+            query_params: dict | None = None,
+            body: TopUpPhysicalCardEndpoint.RequestBody | None = None,
+    ) -> Response:
+        endpoint = TopUpPhysicalCardEndpoint(
+            body=body,
+            query=query_params,
+        )
+
+        response = await client.request(
+            endpoint=endpoint
+        )
+
+        return response
 
     @staticmethod
     def cancel_top_up_on_physical_card(self):
