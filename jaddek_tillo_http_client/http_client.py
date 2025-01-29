@@ -47,6 +47,7 @@ class AbstractClient:
             'API-Key': request_api_key,
             'Signature': request_signature,
             'Timestamp': request_timestamp,
+            'User-Agent': 'TilloHttpClientPython/1.0',
         }
 
 

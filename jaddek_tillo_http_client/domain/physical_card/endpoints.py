@@ -19,6 +19,13 @@ class ActivatePhysicalCardEndpoint(Endpoint):
         pin: str | None = None,
         sector: Sector | None = Sector.GIFT_CARD_MALL
 
+        def get_sign_attrs(self) -> tuple:
+            return (
+                self.client_request_id,
+                self.brand,
+                self.face_value.currency,
+                self.face_value.amount,
+            )
 
 class CancelActivatePhysicalCardEndpoint(Endpoint):
     _method: str = 'DELETE'
