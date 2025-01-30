@@ -1,5 +1,5 @@
-from jaddek_tillo_http_client.domain.float.endpoints import CheckFloatsEndpoint
-from jaddek_tillo_http_client.http_client import HttpClient, AsyncHttpClient
+from .endpoints import CheckFloatsEndpoint
+from ...http_client import HttpClient, AsyncHttpClient
 
 
 class FloatService:

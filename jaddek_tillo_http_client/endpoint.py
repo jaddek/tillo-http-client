@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
-from jaddek_tillo_http_client.helpers import filter_none_values, transform_to_dict
+from .helpers import filter_none_values, transform_to_dict
 
 
 @dataclass(frozen=True)

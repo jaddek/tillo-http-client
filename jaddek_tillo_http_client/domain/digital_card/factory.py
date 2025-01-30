@@ -1,6 +1,6 @@
+from . import FaceValue
 from .endpoints import IssueDigitalCodeEndpoint, \
     TopUpDigitalCodeEndpoint
-from ..brand import FaceValue
 from ...enums import Currency, Sector, DeliveryMethod, FulfilmentType
 
 
